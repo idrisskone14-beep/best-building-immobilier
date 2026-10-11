@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env
+.env.local
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+# Sources de travail volumineuses (rendus bruts, logo source) — voir scripts/prepare-images.mjs
+design-sources
+.claude
