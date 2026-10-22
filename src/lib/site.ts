@@ -41,15 +41,62 @@ export const approval = {
   duration: "cinq ans renouvelables, à compter de la date de signature",
 } as const;
 
-export const nav = [
+export type NavLink = { href: string; label: string };
+export type NavItem = NavLink & { children?: readonly NavLink[] };
+
+/** Sous-rubriques de « Notre entreprise » : une page chacune. */
+export const entrepriseNav: readonly NavLink[] = [
+  { href: "/notre-entreprise", label: "Présentation" },
+  { href: "/notre-entreprise/associes", label: "Les associés" },
+  { href: "/notre-entreprise/vision", label: "Notre vision" },
+  { href: "/notre-entreprise/mission", label: "Notre mission" },
+  { href: "/notre-entreprise/valeurs", label: "Nos valeurs" },
+  { href: "/notre-entreprise/engagements", label: "Nos engagements" },
+];
+
+export const expertisesNav: readonly NavLink[] = [
+  { href: "/nos-expertises/promotion-immobiliere", label: "Promotion immobilière" },
+  { href: "/nos-expertises/amenagement-foncier", label: "Aménagement foncier" },
+  { href: "/nos-expertises/architecture-construction", label: "Architecture & Construction" },
+  { href: "/nos-expertises/transactions-gestion", label: "Transactions et biens immobiliers" },
+  { href: "/nos-expertises/ameublement-equipements", label: "Ameublement et équipements" },
+];
+
+export const projetsNav: readonly NavLink[] = [
+  { href: "/nos-projets/programmes-immobiliers", label: "Programmes immobiliers" },
+  { href: "/nos-projets/amenagements-fonciers", label: "Aménagements fonciers" },
+];
+
+export const realisationsNav: readonly NavLink[] = [
+  { href: "/nos-realisations/villa-triplex", label: "Villa triplex" },
+  { href: "/nos-realisations/villa-basse", label: "Villa basse" },
+  { href: "/nos-realisations/transformation-architecturale", label: "Transformation architecturale" },
+];
+
+export const actualiteNav: readonly NavLink[] = [
+  { href: "/notre-actualite/luxury-agrement", label: "BEST BUILDING LUXURY : agrément" },
+  { href: "/notre-actualite/city-immatriculation", label: "BEST BUILDING CITY : foncier" },
+  { href: "/notre-actualite/azaguie-partenariat", label: "Azaguié : partenariat" },
+];
+
+/** Pages du programme BEST BUILDING LUXURY. */
+export const luxuryNav: readonly NavLink[] = [
+  { href: "/nos-projets/best-building-luxury", label: "Le programme" },
+  { href: "/nos-projets/best-building-luxury/modeles", label: "Les deux modèles" },
+  { href: "/nos-projets/best-building-luxury/qualite", label: "Qualité et expertise" },
+  { href: "/nos-projets/best-building-luxury/galerie", label: "Galerie" },
+  { href: "/nos-projets/best-building-luxury/localisation", label: "Localisation" },
+];
+
+export const nav: readonly NavItem[] = [
   { href: "/", label: "Accueil" },
-  { href: "/notre-entreprise", label: "Notre entreprise" },
-  { href: "/nos-expertises", label: "Nos expertises" },
-  { href: "/nos-projets", label: "Nos projets" },
-  { href: "/nos-realisations", label: "Nos réalisations" },
-  { href: "/notre-actualite", label: "Notre actualité" },
+  { href: "/notre-entreprise", label: "Notre entreprise", children: entrepriseNav },
+  { href: "/nos-expertises", label: "Nos expertises", children: expertisesNav },
+  { href: "/nos-projets", label: "Nos projets", children: projetsNav },
+  { href: "/nos-realisations", label: "Nos réalisations", children: realisationsNav },
+  { href: "/notre-actualite", label: "Notre actualité", children: actualiteNav },
   { href: "/contact", label: "Contact" },
-] as const;
+];
 
 export const legalNav = [
   { href: "/mentions-legales", label: "Mentions légales" },

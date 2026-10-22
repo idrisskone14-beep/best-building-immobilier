@@ -1,19 +1,22 @@
 import type { MetadataRoute } from "next";
-import { env } from "@/lib/site";
+import { actualiteNav, entrepriseNav, env, expertisesNav, luxuryNav, projetsNav, realisationsNav } from "@/lib/site";
+import { projects } from "@/lib/content";
 
-const routes: { path: string; priority: number; changeFrequency: "weekly" | "monthly" | "yearly" }[] = [
+type Freq = "weekly" | "monthly" | "yearly";
+
+const routes: { path: string; priority: number; changeFrequency: Freq }[] = [
   { path: "", priority: 1, changeFrequency: "weekly" },
-  { path: "/notre-entreprise", priority: 0.8, changeFrequency: "monthly" },
+  ...entrepriseNav.map((n) => ({ path: n.href, priority: 0.8, changeFrequency: "monthly" as const })),
   { path: "/nos-expertises", priority: 0.8, changeFrequency: "monthly" },
+  ...expertisesNav.map((n) => ({ path: n.href, priority: 0.7, changeFrequency: "monthly" as const })),
   { path: "/nos-projets", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/nos-projets/best-building-luxury", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/nos-projets/best-building-city", priority: 0.8, changeFrequency: "weekly" },
-  { path: "/nos-projets/mondoukou-village", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/nos-projets/quartier-yaou-residentiel", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/nos-projets/audoin-brakre-parcelle-famille-niaba", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/nos-projets/yamoussoukro-kacou-broukro", priority: 0.7, changeFrequency: "monthly" },
+  ...projetsNav.map((n) => ({ path: n.href, priority: 0.9, changeFrequency: "weekly" as const })),
+  ...luxuryNav.map((n) => ({ path: n.href, priority: 0.9, changeFrequency: "weekly" as const })),
+  ...projects.filter((p) => !p.href).map((p) => ({ path: `/nos-projets/${p.slug}`, priority: 0.8, changeFrequency: "monthly" as const })),
   { path: "/nos-realisations", priority: 0.7, changeFrequency: "monthly" },
+  ...realisationsNav.map((n) => ({ path: n.href, priority: 0.6, changeFrequency: "monthly" as const })),
   { path: "/notre-actualite", priority: 0.7, changeFrequency: "weekly" },
+  ...actualiteNav.map((n) => ({ path: n.href, priority: 0.6, changeFrequency: "weekly" as const })),
   { path: "/contact", priority: 0.8, changeFrequency: "yearly" },
 ];
 

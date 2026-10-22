@@ -1,10 +1,14 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { buildMetadata } from "@/lib/metadata";
-import { img, RENDER_CREDIT } from "@/lib/images";
+import { img } from "@/lib/images";
 import { fonciers, programmes } from "@/lib/content";
+import { projetsNav } from "@/lib/site";
 import { PageHero } from "@/components/PageHero";
+import { SubNav } from "@/components/SubNav";
+import { Photo } from "@/components/Photo";
 import { Reveal } from "@/components/Reveal";
-import { ProjectCard } from "@/components/ProjectCard";
-import { CtaBand } from "@/components/CtaBand";
+import { PageCta } from "@/components/PageCta";
 
 export const metadata = buildMetadata({
   title: "Nos projets",
@@ -13,65 +17,62 @@ export const metadata = buildMetadata({
   path: "/nos-projets",
 });
 
+const categories = [
+  {
+    href: "/nos-projets/programmes-immobiliers",
+    title: "Programmes immobiliers",
+    text: "Des résidences pensées pour y vivre et investir.",
+    names: programmes.map((p) => p.name),
+    image: img.chrysantheme1,
+    alt: "Rendu 3D d’une villa duplex Chrysanthème du programme BEST BUILDING LUXURY",
+    position: "40% 50%",
+  },
+  {
+    href: "/nos-projets/amenagements-fonciers",
+    title: "Aménagements fonciers",
+    text: "Des terrains préparés pour bâtir votre patrimoine.",
+    names: fonciers.map((p) => p.name.replace("Lotissement ", "")),
+    image: img.carteMondoukou,
+    alt: "Vue satellite du lotissement Mondoukou Village",
+    position: "50% 50%",
+  },
+];
+
 export default function ProjetsPage() {
   return (
     <>
       <PageHero
+        compact
         eyebrow="Nos projets"
         title="Des projets conçus pour durer."
-        intro="Programmes immobiliers et aménagements fonciers : des projets présentés avec leurs caractéristiques, leur localisation et leurs conditions."
-        image={img.chrysantheme1}
-        imageAlt="Rendu 3D d’une villa duplex Chrysanthème du programme BEST BUILDING LUXURY"
-        position="40% 50%"
-        credit={RENDER_CREDIT}
+        intro="Programmes immobiliers et aménagements fonciers : caractéristiques, localisation et conditions."
         crumbs={[{ href: "/", label: "Accueil" }, { href: "/nos-projets", label: "Nos projets" }]}
       />
-
-      <section id="programmes" className="scroll-mt-24 py-24 lg:py-32">
-        <div className="wrap">
-          <Reveal>
-            <p className="eyebrow">
-              <span className="tabular-nums">01</span>
-              <span>Programmes immobiliers</span>
-            </p>
-            <h2 className="display display-md mt-6 max-w-3xl">Des résidences pensées pour y vivre et investir.</h2>
-          </Reveal>
-          <div className="mt-14 grid gap-x-10 gap-y-16 md:grid-cols-2">
-            {programmes.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 0.08}>
-                <ProjectCard project={p} sizes="(min-width: 768px) 45vw, 100vw" aspect="aspect-[16/11]" />
-              </Reveal>
-            ))}
-          </div>
+      <SubNav label="Nos projets" items={projetsNav} />
+      <section className="py-12 lg:py-14">
+        <div className="wrap grid gap-10 md:grid-cols-2">
+          {categories.map((c, i) => (
+            <Reveal key={c.href} delay={i * 0.08}>
+              <article className="group relative">
+                <Photo src={c.image} alt={c.alt} sizes="(min-width: 768px) 46vw, 100vw" aspect="aspect-[16/10]" position={c.position} parallax={false} />
+                <div className="mt-6 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="display display-md">
+                      <Link href={c.href} className="after:absolute after:inset-0">
+                        {c.title}
+                      </Link>
+                    </h2>
+                    <p className="mt-2 text-ink-soft">{c.text}</p>
+                    <p className="mt-3 text-xs uppercase tracking-[0.14em] text-navy">{c.names.join(" · ")}</p>
+                  </div>
+                  <ArrowUpRight size={26} strokeWidth={1.5} aria-hidden="true" className="mt-1 shrink-0 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
-
-      <section id="amenagements-fonciers" className="scroll-mt-24 bg-white py-24 lg:py-32">
-        <div className="wrap">
-          <Reveal>
-            <p className="eyebrow">
-              <span className="tabular-nums">02</span>
-              <span>Aménagements fonciers</span>
-            </p>
-            <h2 className="display display-md mt-6 max-w-3xl">Des terrains préparés pour bâtir votre patrimoine.</h2>
-          </Reveal>
-          <div className="mt-14 grid gap-x-10 gap-y-16 md:grid-cols-2">
-            {fonciers.map((p, i) => (
-              <Reveal key={p.slug} delay={(i % 2) * 0.08}>
-                <ProjectCard project={p} sizes="(min-width: 768px) 45vw, 100vw" aspect="aspect-[16/9]" />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CtaBand
-        title="Recevez les informations détaillées d’un projet."
-        text="Disponibilités, prix et modalités de paiement vous sont communiqués par un conseiller."
-        primary={{ href: "/contact?objet=prix", label: "Demander des informations" }}
-        secondary={{ href: "/contact?objet=rendez-vous", label: "Prendre rendez-vous" }}
-        image={img.orchidee3}
-      />
+      <PageCta text="Recevez les informations détaillées d’un projet." primary={{ href: "/contact?objet=prix", label: "Demander des informations" }} />
     </>
   );
 }

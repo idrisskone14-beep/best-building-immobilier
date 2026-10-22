@@ -1,12 +1,14 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { buildMetadata } from "@/lib/metadata";
 import { realisations } from "@/lib/content";
-import { img } from "@/lib/images";
+import { realisationsNav } from "@/lib/site";
 import { PageHero } from "@/components/PageHero";
+import { SubNav } from "@/components/SubNav";
+import { Photo } from "@/components/Photo";
 import { Reveal } from "@/components/Reveal";
 import { StatusTag } from "@/components/StatusTag";
-import { TextLink } from "@/components/ButtonLink";
-import { Gallery } from "@/components/Gallery";
-import { CtaBand } from "@/components/CtaBand";
+import { PageCta } from "@/components/PageCta";
 
 export const metadata = buildMetadata({
   title: "Nos réalisations",
@@ -19,61 +21,49 @@ export default function RealisationsPage() {
   return (
     <>
       <PageHero
+        compact
         eyebrow="Nos réalisations"
         title="Des projets pensés pour durer."
-        intro="Des espaces conçus pour vous ressembler : découvrez quelques-unes de nos réalisations et laissez-vous inspirer pour imaginer la vôtre."
+        intro="Des espaces conçus pour vous ressembler : laissez-vous inspirer pour imaginer le vôtre."
         crumbs={[{ href: "/", label: "Accueil" }, { href: "/nos-realisations", label: "Nos réalisations" }]}
       />
-
-      <section className="py-20 lg:py-24">
+      <SubNav label="Nos réalisations" items={realisationsNav} />
+      <section className="py-12 lg:py-14">
         <div className="wrap">
           <Reveal className="max-w-3xl text-lg text-ink-soft">
             <p>
               Chez BEST BUILDING IMMOBILIER, chaque projet est une occasion de transformer une ambition en un espace de vie concret. De la
-              conception architecturale à la réalisation, nous recherchons le juste équilibre entre fonctionnalité, esthétique et confort, en
-              tenant compte des besoins propres à chaque projet, à chaque client.
+              conception architecturale à la réalisation, nous recherchons le juste équilibre entre fonctionnalité, esthétique et confort.
             </p>
           </Reveal>
+          <ul className="mt-12 grid gap-x-8 gap-y-12 md:grid-cols-3">
+            {realisations.map((r, i) => (
+              <Reveal as="li" key={r.id} delay={i * 0.07} className="group relative">
+                <Photo src={r.images[0].src} alt={r.images[0].alt} sizes="(min-width: 768px) 30vw, 100vw" aspect="aspect-[4/3]" parallax={false} />
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <StatusTag status={r.status} />
+                  {r.location && <span className="text-xs uppercase tracking-[0.16em] text-ink-soft">{r.location}</span>}
+                </div>
+                <div className="mt-4 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="display display-sm">
+                      <Link href={`/nos-realisations/${r.id}`} className="after:absolute after:inset-0">
+                        {r.number}. {r.title}
+                      </Link>
+                    </h2>
+                    <p className="mt-2 text-ink-soft">{r.headline}</p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.14em] text-ink-soft">{r.specs}</p>
+                  </div>
+                  <ArrowUpRight size={22} strokeWidth={1.5} aria-hidden="true" className="mt-1 shrink-0 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                </div>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
-
-      {realisations.map((r, i) => (
-        <section key={r.id} id={r.id} className={`scroll-mt-24 py-20 lg:py-28 ${i % 2 === 0 ? "bg-white" : ""}`}>
-          <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-10">
-            <Reveal className="lg:col-span-4">
-              <p className="display text-7xl italic leading-none text-red">{r.number}</p>
-              <div className="mt-6">
-                <StatusTag status={r.status} />
-              </div>
-              <h2 className="display display-md mt-5">{r.title}</h2>
-              <p className="display display-sm mt-3 !font-normal italic text-navy">{r.headline}</p>
-              <p className="mt-5 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-ink-soft">
-                {r.specs}
-                {r.location ? ` · ${r.location}` : ""}
-              </p>
-              <div className="mt-6 space-y-4 text-ink-soft">
-                {r.paragraphs.map((p) => (
-                  <p key={p.slice(0, 24)}>{p}</p>
-                ))}
-              </div>
-              <p className="mt-6 text-ink">{r.cta}</p>
-              <p className="mt-6">
-                <TextLink href={r.ctaHref}>Parlons de votre projet</TextLink>
-              </p>
-            </Reveal>
-            <Reveal className="lg:col-span-8" delay={0.08}>
-              <Gallery items={r.images} />
-            </Reveal>
-          </div>
-        </section>
-      ))}
-
-      <CtaBand
-        title="Et si votre projet était notre prochaine réalisation ?"
-        text="Construction d’une villa, conception de plans, transformation d’un bien existant ou projet immobilier plus ambitieux : chaque projet mérite une approche réfléchie et adaptée. BEST BUILDING IMMOBILIER vous accompagne pour faire passer vos idées du concept à la réalité."
+      <PageCta
+        text="Et si votre projet était notre prochaine réalisation ?"
         primary={{ href: "/contact?objet=projet&service=architecture", label: "Parlons de votre projet" }}
-        secondary={{ href: "/nos-expertises", label: "Nos expertises" }}
-        image={img.chrysantheme2}
       />
     </>
   );

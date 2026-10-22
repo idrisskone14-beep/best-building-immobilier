@@ -102,11 +102,11 @@ export function Header() {
                 );
               }
               return (
-                <li key={item.href}>
+                <li key={item.href} className="group/menu relative">
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`group relative py-2 whitespace-nowrap text-[0.7rem] font-semibold uppercase tracking-[0.08em] transition-colors 2xl:text-[0.78rem] 2xl:tracking-[0.16em] ${
+                    className={`group relative whitespace-nowrap py-2 text-[0.7rem] font-semibold uppercase tracking-[0.08em] transition-colors 2xl:text-[0.78rem] 2xl:tracking-[0.16em] ${
                       solid ? "text-navy hover:text-red" : "text-white"
                     }`}
                   >
@@ -118,6 +118,23 @@ export function Header() {
                       } ${solid && active ? "text-red" : ""}`}
                     />
                   </Link>
+                  {item.children && (
+                    <div className="invisible absolute left-1/2 top-full z-10 -translate-x-1/2 pt-4 opacity-0 transition-opacity duration-200 group-focus-within/menu:visible group-focus-within/menu:opacity-100 group-hover/menu:visible group-hover/menu:opacity-100">
+                      <ul className="min-w-64 border-t-2 border-red bg-white py-3 shadow-[0_18px_40px_-18px_rgb(15_52_80/0.45)]">
+                        {item.children.map((c) => (
+                          <li key={c.href}>
+                            <Link
+                              href={c.href}
+                              aria-current={pathname === c.href ? "page" : undefined}
+                              className="block whitespace-nowrap px-6 py-2.5 text-[0.78rem] font-medium normal-case tracking-normal text-navy transition-colors hover:bg-ivory hover:text-red aria-[current=page]:text-red"
+                            >
+                              {c.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </li>
               );
             })}
@@ -159,6 +176,21 @@ export function Header() {
                   </span>
                   {item.label}
                 </Link>
+                {item.children && (
+                  <ul className="flex flex-wrap gap-x-5 gap-y-2 pb-5 pl-12">
+                    {item.children.map((c) => (
+                      <li key={c.href}>
+                        <Link
+                          href={c.href}
+                          aria-current={pathname === c.href ? "page" : undefined}
+                          className="text-sm text-white/75 hover:text-white hover:underline hover:underline-offset-4 aria-[current=page]:text-white aria-[current=page]:underline"
+                        >
+                          {c.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>

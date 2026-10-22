@@ -18,9 +18,10 @@ npm start            # sert le build
 
 | Chemin | Rôle |
 | --- | --- |
-| `src/app/` | Pages : Accueil, Notre entreprise, Nos expertises, Nos projets (`/nos-projets`, fiches `[slug]` et page dédiée BEST BUILDING LUXURY), Nos réalisations, Notre actualité, Contact, pages légales ; `api/contact`, sitemap, robots, manifest. `/nos-programmes` redirige vers `/nos-projets` |
+| `src/app/` | Une page par sous-rubrique : `/notre-entreprise` (+ `associes`, `vision`, `mission`, `valeurs`, `engagements`), `/nos-expertises/[slug]` (5), `/nos-projets` (+ `programmes-immobiliers`, `amenagements-fonciers`, fiches `[slug]`, et BEST BUILDING LUXURY en 5 pages), `/nos-realisations/[slug]` (3), `/notre-actualite/[slug]` (3), `/contact`, pages légales ; `api/contact`, sitemap, robots, manifest. `/nos-programmes` redirige vers `/nos-projets` |
 | `src/components/` | Header, Footer, PageHero, Gallery (visionneuse), MapEmbed, ContactForm, Reveal… |
 | `src/lib/site.ts` | **Toutes les données institutionnelles** (raison sociale, RCCM, coordonnées, programme) |
+| `src/lib/luxury.ts` | Données du programme BEST BUILDING LUXURY (modèles, matériaux, expertise) |
 | `src/lib/content.ts` | Expertises, associés, missions, valeurs, **projets** (programmes et lotissements), réalisations, actualités |
 | `src/lib/images.ts` | Registre des visuels et légendes |
 | `src/assets/images/` | Rendus 3D du programme + images extraites du document d’amendements (portraits, cartes de localisation, réalisations) |

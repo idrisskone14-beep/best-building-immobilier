@@ -12,17 +12,19 @@ type Props = {
   /** Position du cadrage de la photographie (object-position CSS). */
   position?: string;
   tall?: boolean;
+  /** Bandeau bas pour les pages de détail : moins de défilement. */
+  compact?: boolean;
   credit?: string;
   crumbs?: { href: string; label: string }[];
   children?: React.ReactNode;
 };
 
 /** Ouverture de page : grande photographie (ou aplat bleu nuit), titre éditorial, fil d'Ariane. */
-export function PageHero({ eyebrow, title, intro, image, imageAlt = "", position = "50% 50%", tall, credit, crumbs, children }: Props) {
+export function PageHero({ eyebrow, title, intro, image, imageAlt = "", position = "50% 50%", tall, compact, credit, crumbs, children }: Props) {
   return (
     <section
       className={`on-dark relative isolate flex items-end overflow-hidden bg-navy-deep text-white ${
-        tall ? "min-h-[88svh]" : "min-h-[62svh]"
+        tall ? "min-h-[88svh]" : compact ? "min-h-[28svh]" : "min-h-[62svh]"
       }`}
     >
       {image ? (
@@ -45,7 +47,7 @@ export function PageHero({ eyebrow, title, intro, image, imageAlt = "", position
         <div aria-hidden="true" className="grid-lines absolute inset-0 -z-10" />
       )}
 
-      <div className="wrap relative z-10 w-full pb-14 pt-40 sm:pb-20">
+      <div className={`wrap relative z-10 w-full ${compact ? "pb-8 pt-28 sm:pb-10" : "pb-14 pt-40 sm:pb-20"}`}>
         {crumbs && (
           <nav aria-label="Fil d’Ariane" className="hero-fade mb-8 text-xs uppercase tracking-[0.18em] text-white/70" style={{ ["--d" as string]: "0.1s" }}>
             <ol className="flex flex-wrap items-center gap-2">
@@ -63,13 +65,13 @@ export function PageHero({ eyebrow, title, intro, image, imageAlt = "", position
         <p className="eyebrow hero-fade" style={{ ["--d" as string]: "0.2s" }}>
           {eyebrow}
         </p>
-        <h1 className="display display-xl mt-6 max-w-5xl">
+        <h1 className={`display mt-6 max-w-5xl ${compact ? "display-lg" : "display-xl"}`}>
           <span className="hero-line">
             <span style={{ ["--d" as string]: "0.3s" }}>{title}</span>
           </span>
         </h1>
         {intro && (
-          <p className="lead hero-fade mt-8 max-w-2xl" style={{ ["--d" as string]: "0.8s" }}>
+          <p className={`lead hero-fade max-w-2xl ${compact ? "mt-5" : "mt-8"}`} style={{ ["--d" as string]: "0.8s" }}>
             {intro}
           </p>
         )}

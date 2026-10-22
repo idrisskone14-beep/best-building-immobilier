@@ -16,7 +16,8 @@ const layout = [
   `${row} md:col-span-6`,
 ];
 
-export function Gallery({ items }: { items: GalleryItem[] }) {
+/** `columns` : mosaïque asymétrique (défaut) ou grille régulière de 2 ou 4 vignettes par rangée (moins de défilement). */
+export function Gallery({ items, columns }: { items: GalleryItem[]; columns?: 2 | 4 }) {
   const [index, setIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -42,7 +43,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
     <>
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-5">
         {items.map((item, i) => (
-          <li key={item.caption} className={layout[i % layout.length]}>
+          <li key={item.caption} className={columns ? `aspect-[4/3] ${columns === 4 ? "md:col-span-3" : "md:col-span-6"}` : layout[i % layout.length]}>
             <button
               type="button"
               onClick={(e) => {
@@ -56,7 +57,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
                 src={item.src}
                 alt={item.alt}
                 fill
-                sizes="(min-width: 768px) 60vw, 100vw"
+                sizes={columns === 4 ? "(min-width: 768px) 25vw, 100vw" : "(min-width: 768px) 60vw, 100vw"}
                 placeholder="blur"
                 loading="lazy"
                 className="object-cover"
