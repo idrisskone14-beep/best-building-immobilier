@@ -105,6 +105,7 @@ export async function POST(request: Request) {
     ["Email", data.email],
     ["Objet", data.subject],
     ["Programme / service", data.service],
+    ...(data.slot ? ([["Date et créneau souhaités", data.slot]] as [string, string][]) : []),
   ];
   const text = [...rows.map(([k, v]) => `${k} : ${v}`), "", data.message].join("\n");
   const html = `<div style="font-family:Arial,sans-serif;color:#20252a;max-width:640px">

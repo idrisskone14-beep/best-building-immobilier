@@ -1,109 +1,77 @@
-import Link from "next/link";
 import { buildMetadata } from "@/lib/metadata";
-import { img, RENDER_CREDIT } from "@/lib/images";
-import { realisations, type Realisation } from "@/lib/content";
+import { realisations } from "@/lib/content";
+import { img } from "@/lib/images";
 import { PageHero } from "@/components/PageHero";
-import { Photo } from "@/components/Photo";
-import { Placeholder } from "@/components/Placeholder";
 import { Reveal } from "@/components/Reveal";
-import { StatusTag, type ProjectStatus } from "@/components/StatusTag";
+import { StatusTag } from "@/components/StatusTag";
 import { TextLink } from "@/components/ButtonLink";
+import { Gallery } from "@/components/Gallery";
 import { CtaBand } from "@/components/CtaBand";
 
 export const metadata = buildMetadata({
   title: "Nos réalisations",
   description:
-    "Les réalisations et projets documentés de BEST BUILDING IMMOBILIER : villas duplex à Grand-Bassam, conceptions architecturales et programme BEST BUILDING LUXURY.",
+    "Les projets livrés par BEST BUILDING IMMOBILIER : villa triplex à Grand-Bassam, villa basse à Yaou et transformation architecturale d’une villa basse en duplex.",
   path: "/nos-realisations",
 });
-
-const groups: { status: ProjectStatus; title: string; text: string }[] = [
-  { status: "Programme en développement", title: "Programme en développement", text: "Un programme en cours de développement, présenté en rendus 3D." },
-  { status: "Réalisation achevée", title: "Réalisations achevées", text: "Constructions livrées par BEST BUILDING IMMOBILIER." },
-  { status: "Projet architectural", title: "Projets architecturaux", text: "Études et plans conçus par la société." },
-];
-
-function Meta({ r }: { r: Realisation }) {
-  return (
-    <p className="mt-3 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-ink-soft">
-      {r.category}
-      {r.location ? ` · ${r.location}` : ""}
-    </p>
-  );
-}
 
 export default function RealisationsPage() {
   return (
     <>
       <PageHero
         eyebrow="Nos réalisations"
-        title="Ce que nous avons bâti, ce que nous bâtissons."
-        intro="Uniquement des projets documentés, présentés pour ce qu’ils sont : réalisation achevée, projet architectural ou programme en développement."
-        image={img.orchidee1}
-        imageAlt="Rendu 3D d’une villa Orchidée du programme BEST BUILDING LUXURY"
-        position="50% 55%"
-        credit={RENDER_CREDIT}
+        title="Des projets pensés pour durer."
+        intro="Des espaces conçus pour vous ressembler : découvrez quelques-unes de nos réalisations et laissez-vous inspirer pour imaginer la vôtre."
         crumbs={[{ href: "/", label: "Accueil" }, { href: "/nos-realisations", label: "Nos réalisations" }]}
       />
 
-      <section className="py-24 lg:py-32">
-        <div className="wrap space-y-28">
-          {groups.map((g) => {
-            const items = realisations.filter((r) => r.status === g.status);
-            if (!items.length) return null;
-            return (
-              <div key={g.status} className="grid gap-12 lg:grid-cols-12 lg:gap-10">
-                <Reveal className="lg:col-span-4">
-                  <StatusTag status={g.status} />
-                  <h2 className="display display-md mt-5">{g.title}</h2>
-                  <p className="mt-4 text-ink-soft">{g.text}</p>
-                </Reveal>
-                <ul className="space-y-16 lg:col-span-7 lg:col-start-6">
-                  {items.map((r) => (
-                    <Reveal as="li" key={r.id}>
-                      {r.image ? (
-                        <Link href={r.href ?? "#"} className="group block">
-                          <div className="frame">
-                            <Photo
-                              src={r.image}
-                              alt={r.imageAlt ?? r.title}
-                              sizes="(min-width: 1024px) 58vw, 100vw"
-                              aspect="aspect-[4/3] lg:aspect-[16/10]"
-                              position="40% 50%"
-                            />
-                          </div>
-                          <h3 className="display display-md mt-10 transition-colors group-hover:text-red">{r.title}</h3>
-                          <Meta r={r} />
-                          <p className="mt-3 max-w-xl text-lg text-ink-soft">{r.description}</p>
-                          <p className="mt-2 text-xs uppercase tracking-[0.16em] text-ink-soft">Rendu 3D, phase esquisse</p>
-                        </Link>
-                      ) : (
-                        <div className="grid gap-6 sm:grid-cols-[14rem_1fr]">
-                          <Placeholder className="aspect-[16/7] sm:aspect-[4/3]" />
-                          <div>
-                            <h3 className="display display-sm">{r.title}</h3>
-                            <Meta r={r} />
-                            <p className="mt-3 text-ink-soft">{r.description}</p>
-                          </div>
-                        </div>
-                      )}
-                      {r.href && (
-                        <p className="mt-6">
-                          <TextLink href={r.href}>Découvrir le programme</TextLink>
-                        </p>
-                      )}
-                    </Reveal>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+      <section className="py-20 lg:py-24">
+        <div className="wrap">
+          <Reveal className="max-w-3xl text-lg text-ink-soft">
+            <p>
+              Chez BEST BUILDING IMMOBILIER, chaque projet est une occasion de transformer une ambition en un espace de vie concret. De la
+              conception architecturale à la réalisation, nous recherchons le juste équilibre entre fonctionnalité, esthétique et confort, en
+              tenant compte des besoins propres à chaque projet, à chaque client.
+            </p>
+          </Reveal>
         </div>
       </section>
 
+      {realisations.map((r, i) => (
+        <section key={r.id} id={r.id} className={`scroll-mt-24 py-20 lg:py-28 ${i % 2 === 0 ? "bg-white" : ""}`}>
+          <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-10">
+            <Reveal className="lg:col-span-4">
+              <p className="display text-7xl italic leading-none text-red">{r.number}</p>
+              <div className="mt-6">
+                <StatusTag status={r.status} />
+              </div>
+              <h2 className="display display-md mt-5">{r.title}</h2>
+              <p className="display display-sm mt-3 !font-normal italic text-navy">{r.headline}</p>
+              <p className="mt-5 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-ink-soft">
+                {r.specs}
+                {r.location ? ` · ${r.location}` : ""}
+              </p>
+              <div className="mt-6 space-y-4 text-ink-soft">
+                {r.paragraphs.map((p) => (
+                  <p key={p.slice(0, 24)}>{p}</p>
+                ))}
+              </div>
+              <p className="mt-6 text-ink">{r.cta}</p>
+              <p className="mt-6">
+                <TextLink href={r.ctaHref}>Parlons de votre projet</TextLink>
+              </p>
+            </Reveal>
+            <Reveal className="lg:col-span-8" delay={0.08}>
+              <Gallery items={r.images} />
+            </Reveal>
+          </div>
+        </section>
+      ))}
+
       <CtaBand
-        title="Votre projet pourrait être le prochain."
-        primary={{ href: "/contact?objet=projet", label: "Parler de mon projet" }}
+        title="Et si votre projet était notre prochaine réalisation ?"
+        text="Construction d’une villa, conception de plans, transformation d’un bien existant ou projet immobilier plus ambitieux : chaque projet mérite une approche réfléchie et adaptée. BEST BUILDING IMMOBILIER vous accompagne pour faire passer vos idées du concept à la réalité."
+        primary={{ href: "/contact?objet=projet&service=architecture", label: "Parlons de votre projet" }}
         secondary={{ href: "/nos-expertises", label: "Nos expertises" }}
         image={img.chrysantheme2}
       />

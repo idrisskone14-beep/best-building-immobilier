@@ -1,75 +1,22 @@
-import { buildMetadata } from "@/lib/metadata";
+import Image from "next/image";
+import { Check } from "lucide-react";
+import { buildMetadata, absoluteUrl } from "@/lib/metadata";
 import { img } from "@/lib/images";
-import { engagements } from "@/lib/content";
+import { associates, engagements, missions, values } from "@/lib/content";
 import { approval, company } from "@/lib/site";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Photo } from "@/components/Photo";
 import { CtaBand } from "@/components/CtaBand";
-import { TextLink } from "@/components/ButtonLink";
 import { JsonLd } from "@/components/JsonLd";
-import { absoluteUrl } from "@/lib/metadata";
 
 export const metadata = buildMetadata({
   title: "Notre entreprise",
   description:
-    "BEST BUILDING IMMOBILIER (2BI SARL), société ivoirienne de promotion immobilière créée en 2020 : vision, missions, engagements, direction et agrément de promoteur immobilier.",
+    "BEST BUILDING IMMOBILIER (2BI SARL), société ivoirienne de promotion immobilière agréée basée à Abidjan : présentation, associés, vision, missions, valeurs et engagements envers nos clients.",
   path: "/notre-entreprise",
 });
-
-const identity: [string, string][] = [
-  ["Raison sociale", company.name],
-  ["Sigle", company.acronym],
-  ["Forme juridique", company.legalForm],
-  ["Création", company.foundedLabel],
-  ["Capital social", company.capital],
-  ["RCCM", company.rccm],
-  ["Siège", `${company.address.street}, ${company.address.city}`],
-];
-
-const timeline = [
-  {
-    when: company.foundedLabel,
-    title: "Création de la société",
-    text: `BEST BUILDING IMMOBILIER est créée sous la forme d’une SARL, au capital de ${company.capital}.`,
-  },
-  {
-    when: approval.date,
-    title: "Agrément de promoteur immobilier",
-    text: "Le ministre de la Construction, du Logement et de l’Urbanisme agrée la société pour l’exercice de la profession de promoteur immobilier.",
-  },
-  {
-    when: "Réalisations",
-    title: "Des premières villas aux projets d’architecture",
-    text: "Construction d’une villa duplex de 5 pièces et conception-réalisation d’une villa duplex haut standing de 6 pièces à Grand-Bassam ; conception de plans d’architecture pour six projets immobiliers.",
-  },
-  {
-    when: "Aujourd’hui",
-    title: "BEST BUILDING LUXURY",
-    text: "Développement d’un programme de 27 villas duplex haut standing à Grand-Bassam, quartier Yaou Résidentiel.",
-  },
-];
-
-const missions = [
-  "Concevoir des projets immobiliers répondant aux normes internationales.",
-  "Promouvoir et faciliter l’accès à des logements de qualité.",
-  "Contribuer à la modernisation et à la valorisation du paysage urbain ivoirien.",
-];
-
-const organisation: [string, string][] = [
-  ["Direction", "Un gérant associé, entouré des associés de la société."],
-  ["Conseil", "Conseil juridique, conseil en gestion comptable et fiscale."],
-  ["Études et technique", "Architecte, ingénieur VRD, conducteur de travaux."],
-  ["Administration et commercial", "Administration et finances, commercial et marketing, gestion des stocks, communication."],
-];
-
-const partners = [
-  "Cabinet d’architecture",
-  "Bureau d’études et de contrôle",
-  "Cabinet d’urbanisme",
-  "Entreprises de construction",
-];
 
 export default function EntreprisePage() {
   return (
@@ -86,225 +33,179 @@ export default function EntreprisePage() {
       />
       <PageHero
         eyebrow="Notre entreprise"
-        title="Construire avec exigence."
-        intro="BEST BUILDING IMMOBILIER conçoit et développe des projets résidentiels haut standing depuis Abidjan, avec l’ambition de devenir une référence de l’immobilier de luxe en Côte d’Ivoire."
-        image={img.orchidee2}
-        imageAlt="Rendu 3D d’une villa Orchidée en vue latérale, haie végétale et ciel dégagé"
+        title="Bâtir l’exception."
+        intro="Créer de la valeur. Inspirer confiance."
+        image={img.entrepriseHero}
+        imageAlt="Villa contemporaine aux lignes épurées, avec allée paysagère et bassin"
         position="50% 55%"
         crumbs={[{ href: "/", label: "Accueil" }, { href: "/notre-entreprise", label: "Notre entreprise" }]}
       />
 
-      {/* 1 — Présentation générale */}
-      <section className="py-28 lg:py-36">
-        <div className="wrap grid gap-16 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-6">
-            <SectionHeading index="01" eyebrow="Présentation générale" title="Promoteur, aménageur, architecte et constructeur." size="md" />
-            <Reveal className="mt-8 space-y-5 text-lg text-ink-soft" delay={0.05}>
-              <p>
-                BEST BUILDING IMMOBILIER, ou 2BI SARL, est une société à responsabilité limitée de droit ivoirien. Elle intervient dans la
-                promotion immobilière, l’aménagement foncier, l’architecture et la construction, les transactions et la gestion immobilières,
-                ainsi que dans la vente de matériaux de construction.
-              </p>
-              <p>
-                Dirigée par M. Ahmadou SY SAVANE, elle s’appuie sur des collaborateurs qualifiés et des partenaires techniques expérimentés
-                pour porter sa vision.
-              </p>
-            </Reveal>
+      {/* 1 — Présentation de l'entreprise */}
+      <section className="py-24 lg:py-32">
+        <div className="wrap grid gap-14 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
+            <SectionHeading index="01" eyebrow="Présentation de l’entreprise" title="Bâtir l’exception, créer de la valeur, inspirer confiance." size="md" />
           </div>
-          <Reveal className="lg:col-span-5 lg:col-start-8" delay={0.1}>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-red">Fiche d’identité</p>
-            <dl className="mt-6 border-t border-ink/25">
-              {identity.map(([k, v]) => (
-                <div key={k} className="grid gap-1 border-b border-ink/15 py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
-                  <dt className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ink-soft">{k}</dt>
-                  <dd className="text-ink">{v}</dd>
-                </div>
-              ))}
-            </dl>
+          <Reveal className="space-y-5 text-lg text-ink-soft lg:col-span-6 lg:col-start-7" delay={0.08}>
+            <p>
+              BEST BUILDING IMMOBILIER, ou 2BI SARL, est une société ivoirienne de promotion immobilière agréée sous le numéro {approval.number},
+              basée à Abidjan et spécialisée dans la construction et la commercialisation de programmes immobiliers.
+            </p>
+            <p>
+              Animée par une ambition forte, celle de devenir une référence dans l’immobilier de luxe en Côte d’Ivoire et dans la sous-région
+              ouest-africaine, notre entreprise place l’excellence, l’intégrité et la satisfaction client au cœur de son approche.
+            </p>
+            <p>
+              Nous concevons des projets immobiliers qui associent élégance architecturale, fonctionnalité, confort et valorisation patrimoniale.
+              Chaque réalisation est envisagée comme une opportunité de créer un cadre de vie de qualité et de contribuer durablement au
+              développement du secteur immobilier.
+            </p>
+            <p>
+              Chez BEST BUILDING IMMOBILIER, nous sommes convaincus que l’immobilier ne se limite pas à construire des bâtiments : il consiste
+              également à créer des espaces de vie, à bâtir la confiance et à contribuer à la constitution d’un patrimoine durable.
+            </p>
+            <p className="display display-sm !font-normal italic text-navy">{company.slogan}</p>
           </Reveal>
         </div>
       </section>
 
-      {/* 2 — Histoire */}
-      <section className="bg-white py-28 lg:py-36">
-        <div className="wrap grid gap-16 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-4">
-            <SectionHeading index="02" eyebrow="Notre histoire" title="Quelques repères depuis 2020." size="md" />
-          </div>
-          <ol className="lg:col-span-7 lg:col-start-6">
-            {timeline.map((t, i) => (
-              <Reveal as="li" key={t.title} delay={i * 0.05} className="grid gap-3 border-t border-ink/20 py-9 first:border-t-0 first:pt-0 sm:grid-cols-[11rem_1fr] sm:gap-8">
-                <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-red">{t.when}</p>
-                <div>
-                  <h3 className="display display-sm">{t.title}</h3>
-                  <p className="mt-3 text-ink-soft">{t.text}</p>
-                </div>
+      {/* 2 — Associés */}
+      <section className="bg-white py-24 lg:py-32">
+        <div className="wrap">
+          <SectionHeading index="02" eyebrow="Présentation des associés" title="Deux parcours complémentaires, une ambition commune." size="md">
+            <p>Développer des projets immobiliers de qualité et bâtir une marque de référence.</p>
+          </SectionHeading>
+          <div className="mt-16 grid gap-16 lg:grid-cols-2 lg:gap-14">
+            {associates.map((a, i) => (
+              <Reveal key={a.id} delay={i * 0.08}>
+                <article>
+                  <Photo
+                    src={a.image}
+                    alt={a.alt}
+                    sizes="(min-width: 1024px) 32vw, 100vw"
+                    aspect="aspect-[4/5]"
+                    position="50% 25%"
+                    parallax={false}
+                    className="max-w-sm"
+                  />
+                  <h3 className="display display-md mt-8">{a.name}</h3>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-red">
+                    {a.role} <span className="text-ink-soft">| {a.domain}</span>
+                  </p>
+                  <div className="mt-6 space-y-4 text-ink-soft">
+                    {a.paragraphs.map((p) => (
+                      <p key={p.slice(0, 24)}>{p}</p>
+                    ))}
+                    <p className="text-ink">{a.vision}</p>
+                  </div>
+                </article>
               </Reveal>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
       {/* 3 — Vision */}
-      <section className="on-dark relative overflow-hidden bg-navy py-28 text-white lg:py-40">
-        <div aria-hidden="true" className="grid-lines absolute inset-0" />
-        <div className="wrap relative">
+      <section className="on-dark relative isolate overflow-hidden bg-navy-deep py-28 text-white lg:py-36">
+        <Image src={img.vision} alt="" fill sizes="100vw" loading="lazy" className="-z-20 object-cover opacity-30" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-navy-deep/40" />
+        <div className="wrap">
           <Reveal>
             <p className="eyebrow">
               <span className="tabular-nums">03</span>
               <span>Notre vision</span>
             </p>
-            <blockquote className="display display-lg mt-8 max-w-5xl !font-normal">
+            <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Une vision exigeante de l’immobilier</p>
+            <blockquote className="display display-lg mt-4 max-w-5xl !font-normal">
               <p>
-                Être une <em>référence</em> dans l’immobilier de luxe en Côte d’Ivoire et dans la sous-région ouest-africaine.
+                Devenir une <em>référence</em> dans l’immobilier de luxe en Côte d’Ivoire et dans la sous-région ouest-africaine.
               </p>
             </blockquote>
+            <p className="lead mt-8 max-w-3xl">
+              Cette vision exprime notre ambition de devenir un acteur incontournable du haut de gamme, reconnu pour la qualité de ses
+              réalisations, son professionnalisme et sa capacité à concevoir des espaces de vie et d’investissement d’exception.
+            </p>
           </Reveal>
         </div>
       </section>
 
       {/* 4 — Missions */}
-      <section className="py-28 lg:py-36">
+      <section className="py-24 lg:py-32">
         <div className="wrap">
-          <SectionHeading index="04" eyebrow="Nos missions" title="Trois missions, un même cap." size="md" />
-          <ol className="mt-16 grid gap-12 md:grid-cols-3 md:gap-10">
+          <SectionHeading index="04" eyebrow="Notre mission" title="Cinq engagements au service d’une clientèle exigeante." size="md">
+            <p>
+              À travers chacune de nos opérations, BEST BUILDING IMMOBILIER ambitionne de répondre aux exigences d’une clientèle en quête de
+              prestige, de sérénité et d’investissements immobiliers de qualité.
+            </p>
+          </SectionHeading>
+          <ol className="mt-16 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-6">
             {missions.map((m, i) => (
-              <Reveal as="li" key={m} delay={i * 0.08} className="border-t border-navy pt-6">
-                <span className="display text-5xl italic leading-none text-red">{String(i + 1).padStart(2, "0")}</span>
-                <p className="display display-sm mt-6 !font-normal">{m}</p>
+              <Reveal as="li" key={m.title} delay={(i % 3) * 0.07} className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}>
+                <Photo
+                  src={m.image}
+                  alt={m.alt}
+                  sizes={i < 3 ? "(min-width: 1024px) 30vw, 50vw" : "(min-width: 1024px) 45vw, 50vw"}
+                  aspect="aspect-[4/3]"
+                  parallax={false}
+                />
+                <div className="mt-6 flex items-start gap-4">
+                  <span className="display text-4xl italic leading-none text-red">{String(i + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h3 className="display display-sm">{m.title}</h3>
+                    <p className="mt-3 text-ink-soft">{m.text}</p>
+                  </div>
+                </div>
               </Reveal>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* 5 — Valeurs et engagements */}
-      <section className="bg-white py-28 lg:py-36">
-        <div className="wrap grid gap-16 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5">
-            <SectionHeading index="05" eyebrow="Valeurs et engagements" title="Bien plus que construire, créer de la valeur durable." size="md" />
-          </div>
-          <ul className="lg:col-span-6 lg:col-start-7">
-            {engagements.map((e, i) => (
-              <Reveal as="li" key={e.title} delay={i * 0.06} className="border-t border-ink/20 py-8 first:border-t-0 first:pt-0">
-                <h3 className="display display-sm">{e.title}</h3>
-                <p className="mt-3 max-w-lg text-ink-soft">{e.text}</p>
+      {/* 5 — Valeurs */}
+      <section className="bg-white py-24 lg:py-32">
+        <div className="wrap">
+          <SectionHeading index="05" eyebrow="Nos valeurs" title="Six valeurs pour guider chacun de nos projets." size="md" />
+          <ul className="mt-16 grid gap-x-12 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {values.map((v, i) => (
+              <Reveal as="li" key={v.title} delay={(i % 3) * 0.06} className="border-t border-navy pt-6">
+                <h3 className="display display-sm">{v.title}</h3>
+                <p className="mt-3 text-ink-soft">{v.text}</p>
               </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* 6 — Direction */}
-      <section className="py-28 lg:py-36">
-        <div className="wrap grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
-          <Reveal className="lg:col-span-4">
-            {/* Emplacement réservé : portrait officiel à fournir (aucun portrait n'est inventé). */}
-            <div
-              role="img"
-              aria-label="Emplacement réservé au portrait officiel de la direction"
-              className="frame-left frame relative aspect-[4/5] bg-stone"
-            >
-              <div className="flex h-full w-full items-end bg-stone p-5">
-                <span className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-navy/60">Portrait officiel à venir</span>
-              </div>
-            </div>
-          </Reveal>
-          <div className="lg:col-span-7 lg:col-start-6">
-            <SectionHeading index="06" eyebrow="Notre direction" title={company.manager.name} size="md">
-              <p className="!text-red">{company.manager.role}</p>
-            </SectionHeading>
-            <Reveal className="mt-8 max-w-2xl space-y-5 text-lg text-ink-soft" delay={0.05}>
-              <p>
-                Titulaire d’un Master en administration des entreprises, Ahmadou SY SAVANE dirige BEST BUILDING IMMOBILIER et porte la vision
-                de l’entreprise : bâtir des programmes résidentiels de qualité, au service des familles, des cadres, des investisseurs et de
-                la diaspora.
-              </p>
-              <p>Il s’appuie sur une équipe de collaborateurs et de partenaires techniques spécialisés.</p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* 7 — Compétences et partenaires */}
-      <section className="bg-white py-28 lg:py-36">
-        <div className="wrap grid gap-16 lg:grid-cols-12 lg:gap-10">
+      {/* 6 — Engagements envers nos clients */}
+      <section className="py-24 lg:py-32">
+        <div className="wrap grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
-            <SectionHeading
-              index="07"
-              eyebrow="Compétences et partenaires techniques"
-              title="Une organisation structurée autour de chaque projet."
-              size="md"
-            />
-            <Reveal className="mt-10" delay={0.1}>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-red">Partenaires techniques</p>
-              <ul className="mt-5 flex flex-wrap gap-3">
-                {partners.map((p) => (
-                  <li key={p} className="border border-navy/40 px-4 py-2 text-sm text-navy">
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
+            <SectionHeading index="06" eyebrow="Nos engagements envers nos clients" title="Bien plus qu’un bien immobilier, une exigence d’excellence." size="md" />
           </div>
-          <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.1}>
-            <dl className="border-t border-ink/25">
-              {organisation.map(([k, v]) => (
-                <div key={k} className="grid gap-1 border-b border-ink/15 py-6 sm:grid-cols-[12rem_1fr] sm:gap-8">
-                  <dt className="display display-sm">{k}</dt>
-                  <dd className="text-ink-soft">{v}</dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 8 — Agrément */}
-      <section className="py-28 lg:py-36">
-        <div className="wrap grid gap-16 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5">
-            <SectionHeading index="08" eyebrow="Agrément et informations institutionnelles" title="Un agrément de promoteur immobilier." size="md" />
-          </div>
-          <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.1}>
-            <div className="border border-navy/25 bg-white p-8 sm:p-10">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-red">Agrément de promoteur immobilier</p>
-              <p className="display display-sm mt-4">
-                {approval.decree}
-                <br />
-                du {approval.date}
-              </p>
-              <p className="mt-5 text-ink-soft">
-                Arrêté portant agrément de la société BEST BUILDING IMMOBILIER à l’exercice de la profession de promoteur immobilier, pris par le{" "}
-                {approval.authority}, après avis de la Commission d’agrément des promoteurs immobiliers et des programmes immobiliers (CAPPI).
-              </p>
-              <p className="mt-4 text-sm text-ink-soft">Durée prévue par l’arrêté : {approval.duration}.</p>
-            </div>
-            <dl className="mt-8 border-t border-ink/25">
-              {[
-                ["RCCM", company.rccm],
-                ["Capital social", company.capital],
-                ["Siège", `${company.address.street}, ${company.address.city}`],
-              ].map(([k, v]) => (
-                <div key={k} className="grid gap-1 border-b border-ink/15 py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
-                  <dt className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ink-soft">{k}</dt>
-                  <dd>{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-8">
-              <TextLink href="/contact">Nous poser une question</TextLink>
+          <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.08}>
+            <p className="text-lg text-ink-soft">
+              Chez BEST BUILDING IMMOBILIER, nous voulons que chaque acquisition soit une expérience fondée sur la confiance, la qualité et le
+              confort.
             </p>
+            <ul className="mt-8 border-t border-ink/20">
+              {engagements.map((e) => (
+                <li key={e} className="flex items-start gap-4 border-b border-ink/10 py-4">
+                  <Check size={18} strokeWidth={1.75} className="mt-1 shrink-0 text-red" aria-hidden="true" />
+                  <span>{e}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="display display-sm mt-10 !font-normal italic text-navy">Notre slogan et signature de marque : {company.slogan}</p>
           </Reveal>
         </div>
       </section>
-
-      <Photo src={img.chrysantheme3} alt="Rendu 3D de la façade jardin d’une villa Chrysanthème" sizes="100vw" aspect="aspect-[16/9] sm:aspect-[21/9]" position="50% 45%" />
 
       <CtaBand
         title="Construire avec exigence. Investir avec confiance."
-        primary={{ href: "/contact?objet=conseiller", label: "Parler à un conseiller" }}
-        secondary={{ href: "/nos-programmes", label: "Explorer nos programmes" }}
+        primary={{ href: "/contact?objet=rendez-vous", label: "Prendre rendez-vous" }}
+        secondary={{ href: "/nos-projets", label: "Découvrir nos projets" }}
+        image={img.chrysantheme3}
       />
     </>
   );

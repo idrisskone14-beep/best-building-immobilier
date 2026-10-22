@@ -1,6 +1,6 @@
 # BEST BUILDING IMMOBILIER — site officiel (2BI SARL)
 
-Site corporate multipage, en français, « L’architecture du patrimoine ».
+Site corporate multipage, en français, « Bâtir aujourd’hui, valoriser demain ». Contenu aligné sur le document **« Amendements du site internet de 2BI SARL »**.
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · Motion · Lucide.
 
 ## Démarrer
@@ -18,13 +18,13 @@ npm start            # sert le build
 
 | Chemin | Rôle |
 | --- | --- |
-| `src/app/` | Pages (Accueil, Notre entreprise, Nos expertises, Nos programmes, BEST BUILDING LUXURY, Nos réalisations, Contact, pages légales), `api/contact`, sitemap, robots, manifest, erreurs |
+| `src/app/` | Pages : Accueil, Notre entreprise, Nos expertises, Nos projets (`/nos-projets`, fiches `[slug]` et page dédiée BEST BUILDING LUXURY), Nos réalisations, Notre actualité, Contact, pages légales ; `api/contact`, sitemap, robots, manifest. `/nos-programmes` redirige vers `/nos-projets` |
 | `src/components/` | Header, Footer, PageHero, Gallery (visionneuse), MapEmbed, ContactForm, Reveal… |
 | `src/lib/site.ts` | **Toutes les données institutionnelles** (raison sociale, RCCM, coordonnées, programme) |
-| `src/lib/content.ts` | Expertises, engagements, réalisations |
+| `src/lib/content.ts` | Expertises, associés, missions, valeurs, **projets** (programmes et lotissements), réalisations, actualités |
 | `src/lib/images.ts` | Registre des visuels et légendes |
-| `src/assets/images/` | Rendus 3D officiels optimisés (générés) |
-| `scripts/prepare-images.mjs` | Régénère les visuels depuis `design-sources/` (rendus du PowerPoint, logo) |
+| `src/assets/images/` | Rendus 3D du programme + images extraites du document d’amendements (portraits, cartes de localisation, réalisations) |
+| `scripts/prepare-images.mjs` | Régénère les rendus 3D depuis `design-sources/` (les images du document d’amendements ont été ajoutées directement) |
 | `public/brand/logo-2bi.png` | Logo officiel (redimensionné uniquement, jamais redessiné ni recoloré) |
 
 Palette échantillonnée sur le logo : rouge `#A73030`, bleu nuit `#0F3450` ; ivoire `#F6F3EE`, pierre `#E7E5E1`, anthracite `#20252A`.
@@ -54,25 +54,23 @@ Copier `.env.example` vers `.env.local` (local) ou renseigner les variables dans
 ## À compléter / confirmer avant la mise en production
 
 **Contenu**
-- Photographies des réalisations achevées (villas duplex 5 et 6 pièces) : emplacements « Photographie à venir » dans `src/lib/content.ts` (champ `image`).
-- Portrait officiel du gérant : emplacement réservé dans `src/app/notre-entreprise/page.tsx`.
-- Numéro WhatsApp professionnel validé ; coordonnées exactes du siège.
-- Mentions légales et politique de confidentialité : textes **provisoires**, marqués `[à compléter]`, non indexés. Après validation (idéalement juridique), passer `LEGAL_PAGES_VALIDATED` à `true` dans `src/lib/site.ts`.
-- Photographies d’ambiance sous licence (facultatif) : les sections générales utilisent des recadrages des rendus 3D du programme, toujours légendés comme tels.
+- Vidéos des projets (demandées dans la rubrique « Nos projets ») : aucune vidéo n’a été fournie.
+- Plans, modalités de paiement, prix et disponibilités des projets : non fournis, renvoyés vers un conseiller.
+- Photographies des lotissements : seules des vues satellite annotées (captures Google Maps) ont été fournies.
+- Numéro WhatsApp professionnel validé ; coordonnées exactes du siège (carte OpenStreetMap).
+- Mentions légales et politique de confidentialité : textes **provisoires**, non indexés (`LEGAL_PAGES_VALIDATED` dans `src/lib/site.ts`).
+- **Base de données prospects** (objectif du formulaire) : les demandes sont envoyées par e-mail (Resend). Aucune base n’est branchée : à choisir (Supabase, Vercel Postgres, Google Sheets…).
 
-**Points à confirmer (contradictions ou zones d’ombre dans les documents)**
-1. **Agrément** : arrêté n° 22-00098/MCLU/DGLCV/CAPPI du 12 octobre 2022, valable cinq ans renouvelables (échéance nominale : octobre 2027). Le site présente la date de délivrance, sans affirmer la validité actuelle. Confirmer le statut / renouvellement. L’article 4 de l’arrêté exige un **agrément de programme** avant tout démarrage : le site ne prétend pas que BEST BUILDING LUXURY en dispose.
-2. **Gérance** : l’arrêté mentionne deux co-gérants (M. LOUA NYELEKE FELIX et M. SY SAVANE AHMADOU) ; le brief présente M. Ahmadou SY SAVANE comme gérant associé. Seul ce dernier est publié.
-3. **Orthographe du nom** : « SY Savané Ahmadou » (présentation) / « SY SAVANE Ahmadou » (arrêté, deck) / « Ahmadou SY SAVANE » (brief). Version du brief retenue.
-4. **Rendus 3D** : dans la version finale du PowerPoint, Chrysanthème = images 6-7-8, Orchidée = images 9-10-11. Les façades des diapositives 3 et 13/15 sont marquées « non attribuées à un modèle précis » et ne sont pas utilisées comme visuel d’un modèle.
-5. **« 4 chambres autonomes »** figure à l’identique pour les deux modèles (7 et 5 pièces) : non publié tant que non confirmé.
-6. **Surfaces et terrains** (Chrysanthème 274,88 m² / 337–411 m² ; Orchidée 197,16 m² / 254–358 m²) : publiés comme indicatifs (phase esquisse). Confirmer.
-7. **Prix, échelonnement VEFA, remise comptant, garantie décennale, « ACD des îlots »** : présents dans le PowerPoint (adressé à un partenaire), volontairement **non publiés** ; le site renvoie vers un conseiller.
-8. **Localisation du programme** : coordonnées (5,2023440 ; −3,6722627), PK 5,5 entre Mondoukou et Yaou, Assinie ≈ 20 min — issus du dossier, présentés comme indicatifs. Le temps « aéroport ≈ 30 min » est ambigu (quel aéroport ?) : non publié.
-9. **Réalisations** : « Réalisation achevée » est déduit de la rubrique « Nos réalisations » de la présentation ; localisation « Grand-Bassam » reprise du brief (le document dit « Bassam »). Le duplex 5P est de « standing moyen ».
-10. **Partenaires techniques** : présentés par discipline. Les raisons sociales de l’organigramme (cabinet d’architecture, bureau d’études) ne sont pas publiées sans accord de ces partenaires.
-11. **E-mail** : le domaine `gtpci.com` diffère de celui de la société ; confirmer qu’il s’agit bien de l’adresse officielle.
-12. **Données non publiées** : n° de compte bancaire, CNPS, n° de compte contribuable, régime fiscal, réserves foncières, matériel, plans VRD, notes de calcul, montages financiers, partenariat en négociation.
+**Points à confirmer (incohérences du document d’amendements)**
+1. **Adresse du siège** : « Riviera Akouédo Palmeraie, rue Grand Alépé, derrière le supermarché AB Center » (section Contacts, retenue) vs « Riviera Abatta, après AB Center » (pied de page du document).
+2. **E-mail** : `info@best-building.com` (section Contacts, retenu) vs `infos@2bi-sarl.com` (pied de page). Téléphones : 07 77 80 44 04 (Contacts) ; les deux autres numéros proviennent du pied de page.
+3. **Quartier Yaou Résidentiel** : distance aux plages d’Assinie « 25 km » (texte) vs « 24 km » (puce) — 25 km retenu ; lots « approuvés **et** dotés d’ACD » vs « approuvés **ou** dotés d’ACD ».
+4. **Yamoussoukro** : « Kacou-Broukro » (texte) vs « Kakou-Broukro » (carte).
+5. **Statut BEST BUILDING LUXURY** : présenté « en développement » ; l’agrément du programme (CAPPI) n’est annoncé que pour début novembre 2026 — le site ne l’affirme pas.
+6. **Orthographe** : « Nyéléké » (lecture du PDF, à confirmer) ; « SY Savané Ahmadou » (document) vs « SY SAVANE » (arrêté).
+7. **Surfaces et terrains** des villas : publiés comme indicatifs (phase esquisse).
+8. **Réalisations** : la localisation de la transformation architecturale n’est pas indiquée ; les visuels proviennent du document (rendus et photos non légendés plus précisément).
+9. **Données non publiées** : n° de compte bancaire, CNPS, compte contribuable, régime fiscal.
 
 ## Accessibilité et performances
 

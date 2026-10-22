@@ -13,9 +13,9 @@ export function Footer() {
       <div className="wrap grid gap-14 pb-20 pt-14 lg:grid-cols-12 lg:pb-24">
         <div className="lg:col-span-5">
           <Logo variant="plate" className="w-52" />
-          <p className="display display-sm mt-10 max-w-md !font-normal italic text-white/90">Bâtir aujourd’hui, valoriser demain.</p>
+          <p className="display display-sm mt-10 max-w-md !font-normal italic text-white/90">{company.tagline}</p>
           <p className="mt-6 max-w-md text-sm leading-relaxed text-white/65">
-            Agrément de promoteur immobilier délivré par arrêté ministériel du {approval.date}. {company.acronym}, capital de {company.capital}, RCCM{" "}
+            Promoteur immobilier agréé n° {approval.number}, arrêté ministériel du {approval.date}. {company.acronym}, capital de {company.capital}, RCCM{" "}
             {company.rccm}.
           </p>
         </div>

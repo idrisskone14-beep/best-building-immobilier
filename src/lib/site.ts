@@ -1,6 +1,6 @@
 /**
- * Données institutionnelles vérifiées (Présentation de 2BI SARL, agrément, brief client).
- * Toute information absente des documents doit rester un emplacement « à compléter ».
+ * Données institutionnelles (document « Amendements du site internet de 2BI SARL », qui prévaut
+ * sur les documents antérieurs). Toute information absente des documents reste un emplacement « à compléter ».
  */
 
 export const company = {
@@ -12,22 +12,29 @@ export const company = {
   capital: "5 000 000 FCFA",
   rccm: "CI-ABJ-03-2021-M-13931",
   address: {
-    street: "Riviera Palmeraie, route de Faya, après Top Bâtiment",
+    street: "Riviera Akouédo Palmeraie, rue Grand Alépé, derrière le supermarché AB Center",
     city: "Abidjan",
     country: "Côte d’Ivoire",
-    full: "Riviera Palmeraie, route de Faya, après Top Bâtiment, Abidjan, Côte d’Ivoire",
+    full: "Riviera Akouédo Palmeraie, rue Grand Alépé, derrière le supermarché AB Center, Abidjan, Côte d’Ivoire",
+    /** Localisation Google Maps du siège social. */
+    mapUrl: "https://maps.app.goo.gl/8XBstc6dWmFepNxh8?g_st=ic",
   },
   phones: [
-    { display: "25 21 00 29 43", tel: "+2252521002943" },
-    { display: "07 69 29 69 01", tel: "+2250769296901" },
     { display: "07 77 80 44 04", tel: "+2250777804404" },
+    { display: "07 69 29 69 01", tel: "+2250769296901" },
+    { display: "25 21 00 29 43", tel: "+2252521002943" },
   ],
-  email: "info.2bi@gtpci.com",
-  manager: { name: "Ahmadou SY SAVANE", role: "Gérant associé" },
-  vision: "Être une référence dans l’immobilier de luxe en Côte d’Ivoire et dans la sous-région ouest-africaine.",
+  /** E-mail du secrétariat (adresse de réception des demandes du site). */
+  email: "info@best-building.com",
+  managerEmail: "a_sysavane@best-building.com",
+  manager: { name: "SY Savané Ahmadou", role: "Gérant & Associé" },
+  vision: "Devenir une référence dans l’immobilier de luxe en Côte d’Ivoire et dans la sous-région ouest-africaine.",
+  slogan: "L’excellence immobilière, notre signature.",
+  tagline: "Bâtir aujourd’hui, valoriser demain.",
 } as const;
 
 export const approval = {
+  number: "22-00098/MCLU/DGLCV/CAPPI/ogla",
   decree: "Arrêté n° 22-00098/MCLU/DGLCV/CAPPI",
   date: "12 octobre 2022",
   authority: "Ministère de la Construction, du Logement et de l’Urbanisme",
@@ -38,8 +45,9 @@ export const nav = [
   { href: "/", label: "Accueil" },
   { href: "/notre-entreprise", label: "Notre entreprise" },
   { href: "/nos-expertises", label: "Nos expertises" },
-  { href: "/nos-programmes", label: "Nos programmes" },
+  { href: "/nos-projets", label: "Nos projets" },
   { href: "/nos-realisations", label: "Nos réalisations" },
+  { href: "/notre-actualite", label: "Notre actualité" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -48,12 +56,11 @@ export const legalNav = [
   { href: "/politique-de-confidentialite", label: "Confidentialité" },
 ] as const;
 
-/** Programme BEST BUILDING LUXURY — informations confirmées par la présentation du programme. */
+/** Programme BEST BUILDING LUXURY (27 villas duplex haut standing, Quartier Yaou Résidentiel). */
 export const programme = {
   slug: "best-building-luxury",
   name: "BEST BUILDING LUXURY",
-  city: "Grand-Bassam",
-  district: "Yaou Résidentiel",
+  district: "Quartier Yaou Résidentiel",
   villas: 27,
   models: [
     {

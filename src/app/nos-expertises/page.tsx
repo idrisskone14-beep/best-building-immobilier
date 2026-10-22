@@ -10,7 +10,7 @@ import { CtaBand } from "@/components/CtaBand";
 export const metadata = buildMetadata({
   title: "Nos expertises",
   description:
-    "Promotion immobilière, aménagement foncier, architecture et construction, transactions et gestion immobilières, matériaux de construction : les expertises de BEST BUILDING IMMOBILIER.",
+    "Promotion immobilière, aménagement foncier, architecture & construction, gestion des transactions et biens immobiliers, ameublement et équipements : les cinq expertises de BEST BUILDING IMMOBILIER.",
   path: "/nos-expertises",
 });
 
@@ -64,7 +64,7 @@ export default function ExpertisesPage() {
         title="Un accompagnement personnalisé pour votre projet."
         text="Décrivez-nous votre besoin : un conseiller de BEST BUILDING IMMOBILIER reviendra vers vous."
         primary={{ href: "/contact?objet=conseiller", label: "Demander un accompagnement" }}
-        secondary={{ href: "/nos-programmes", label: "Voir nos programmes" }}
+        secondary={{ href: "/nos-projets", label: "Voir nos projets" }}
         image={img.orchidee1}
       />
     </>

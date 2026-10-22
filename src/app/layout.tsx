@@ -26,11 +26,11 @@ const sans = Instrument_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
   title: {
-    default: `${company.name} — Promotion immobilière haut standing en Côte d’Ivoire`,
+    default: `${company.name} — Promoteur immobilier agréé à Abidjan`,
     template: `%s | ${company.name}`,
   },
   description:
-    "BEST BUILDING IMMOBILIER (2BI SARL) : promotion immobilière, aménagement foncier, architecture et construction. Découvrez BEST BUILDING LUXURY, 27 villas duplex haut standing à Grand-Bassam.",
+    "Promoteur immobilier agréé à Abidjan, BEST BUILDING IMMOBILIER (2BI SARL) conçoit des projets immobiliers d’exception : promotion immobilière, aménagement foncier, architecture et construction.",
   applicationName: company.name,
   authors: [{ name: company.name }],
   formatDetection: { telephone: false, email: false, address: false },

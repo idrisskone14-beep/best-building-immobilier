@@ -10,7 +10,7 @@ import { MapEmbed } from "@/components/MapEmbed";
 export const metadata = buildMetadata({
   title: "Contact",
   description:
-    "Contactez BEST BUILDING IMMOBILIER (2BI SARL) à Abidjan : téléphone, email et formulaire pour demander une présentation du programme BEST BUILDING LUXURY ou un accompagnement.",
+    "Contactez BEST BUILDING IMMOBILIER (2BI SARL) à Abidjan : coordonnées, formulaire de demande et prise de rendez-vous pour vos projets immobiliers et fonciers.",
   path: "/contact",
 });
 
@@ -26,7 +26,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Parlons de votre projet."
-        intro="Un conseiller de BEST BUILDING IMMOBILIER vous répond pour toute demande de présentation, d’information ou d’accompagnement."
+        intro="Coordonnées, formulaire de demande et prise de rendez-vous : un conseiller de BEST BUILDING IMMOBILIER vous répond."
         crumbs={[{ href: "/", label: "Accueil" }, { href: "/contact", label: "Contact" }]}
       />
 
@@ -67,6 +67,12 @@ export default function ContactPage() {
                 </a>
               </div>
             </address>
+            <p className="mt-6 text-sm text-ink-soft">
+              Adresse du secrétariat ci-dessus. Gérant :{" "}
+              <a href={`mailto:${company.managerEmail}`} className="break-all hover:text-red hover:underline hover:underline-offset-4">
+                {company.managerEmail}
+              </a>
+            </p>
 
             {whatsappHref && (
               <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="btn btn-line mt-10">
@@ -77,7 +83,7 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal className="lg:col-span-7 lg:col-start-6" delay={0.1}>
-            <p className="eyebrow">Formulaire</p>
+            <p className="eyebrow">Demande et rendez-vous</p>
             <h2 className="display display-md mt-6">Votre demande</h2>
             <p className="mt-4 text-sm text-ink-soft">Les champs marqués d’un astérisque (*) sont obligatoires.</p>
             <div className="mt-10">
@@ -100,14 +106,17 @@ export default function ContactPage() {
           </Reveal>
           <Reveal className="lg:col-span-7 lg:col-start-6" delay={0.1}>
             {env.hq ? (
-              <MapEmbed lat={env.hq.lat} lng={env.hq.lng} title="Carte du siège social de BEST BUILDING IMMOBILIER à Abidjan" note="Siège social — Riviera Palmeraie." />
+              <MapEmbed lat={env.hq.lat} lng={env.hq.lng} title="Carte du siège social de BEST BUILDING IMMOBILIER à Abidjan" note="Siège social — Riviera Akouédo Palmeraie." />
             ) : (
               <div className="border border-navy/25 p-8 sm:p-10">
-                <p className="display display-sm">Retrouvez-nous à la Riviera Palmeraie.</p>
+                <p className="display display-sm">Retrouvez-nous à la Riviera Akouédo Palmeraie.</p>
                 <p className="mt-4 text-ink-soft">
                   Pour faciliter votre venue, vous pouvez lancer une recherche de l’adresse dans votre application de cartographie.
                 </p>
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                  <a href={company.address.mapUrl} target="_blank" rel="noopener noreferrer" className="btn btn-navy">
+                    Localisation Google Maps
+                  </a>
                   <a
                     href={`https://www.openstreetmap.org/search?query=${addressQuery}`}
                     target="_blank"

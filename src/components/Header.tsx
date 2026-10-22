@@ -85,7 +85,7 @@ export function Header() {
         />
 
         <nav aria-label="Navigation principale" className="hidden xl:block">
-          <ul className="flex items-center gap-9">
+          <ul className="flex items-center gap-5 2xl:gap-9">
             {nav.map((item) => {
               const active = isActive(item.href);
               if (item.href === "/contact") {
@@ -94,7 +94,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={active ? "page" : undefined}
-                      className={`btn !px-6 !py-3 ${solid ? "btn-red" : "btn-line-light"}`}
+                      className={`btn whitespace-nowrap !px-5 !py-3 ${solid ? "btn-red" : "btn-line-light"}`}
                     >
                       {item.label}
                     </Link>
@@ -106,7 +106,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`group relative py-2 text-[0.78rem] font-semibold uppercase tracking-[0.16em] transition-colors ${
+                    className={`group relative py-2 whitespace-nowrap text-[0.7rem] font-semibold uppercase tracking-[0.08em] transition-colors 2xl:text-[0.78rem] 2xl:tracking-[0.16em] ${
                       solid ? "text-navy hover:text-red" : "text-white"
                     }`}
                   >
@@ -163,9 +163,9 @@ export function Header() {
             ))}
           </ul>
           <div className="mt-10 space-y-3 text-sm text-white/80">
-            <a href={`tel:${company.phones[1].tel}`} className="inline-flex items-center gap-3 text-base text-white">
+            <a href={`tel:${company.phones[0].tel}`} className="inline-flex items-center gap-3 text-base text-white">
               <Phone size={18} strokeWidth={1.5} aria-hidden="true" />
-              {company.phones[1].display}
+              {company.phones[0].display}
             </a>
             <p>
               {company.address.street}, {company.address.city}

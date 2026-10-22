@@ -94,6 +94,7 @@ export function ContactForm() {
       email: String(fd.get("email") ?? ""),
       subject: String(fd.get("subject") ?? ""),
       service: String(fd.get("service") ?? ""),
+      slot: String(fd.get("slot") ?? ""),
       message: String(fd.get("message") ?? ""),
       consent: fd.get("consent") === "on",
     };
@@ -134,7 +135,7 @@ export function ContactForm() {
         return;
       }
       if (data.code === "not_configured") {
-        const body = `${values.message}\n\n— ${values.name}\n${values.phone}\n${values.email}\n${values.service}`;
+        const body = `${values.message}\n\n— ${values.name}\n${values.phone}\n${values.email}\n${values.service}${values.slot ? `\nCréneau souhaité : ${values.slot}` : ""}`;
         setMailto(`mailto:${company.email}?subject=${encodeURIComponent(values.subject)}&body=${encodeURIComponent(body)}`);
         setStatus("unavailable");
         return;
@@ -213,6 +214,17 @@ export function ContactForm() {
             </option>
           ))}
         </select>
+      </Field>
+
+      <Field id="slot" label="Date et créneau souhaités (rendez-vous)" error={errors.slot} required={false} className="sm:col-span-2">
+        <input
+          id="slot"
+          name="slot"
+          type="text"
+          placeholder="Ex. : mardi après-midi, ou un jour de la semaine prochaine"
+          className="field"
+          {...aria("slot")}
+        />
       </Field>
 
       <Field id="message" label="Message" error={errors.message} className="sm:col-span-2">
